@@ -1,46 +1,53 @@
 {
-  "name": "grails-test-runner",
-  "displayName": "Grails Test Runner",
-  "description": "Ejecuta tests de Grails/Spock con CodeLens",
-  "version": "0.0.1",
-  "publisher": "alejmendez",
-  "icon": "icon.png",
-  "engines": {
-    "vscode": "^1.74.0"
-  },
-  "categories": [
-    "Testing"
-  ],
-  "keywords": ["grails", "spock", "groovy", "test", "gradle"],
-  "activationEvents": [
-    "onLanguage:groovy",
-    "workspaceContains:**/*Spec.groovy"
-  ],
-  "main": "./out/extension.js",
-  "contributes": {
-    "commands": [
-      {
-        "command": "grails-test-runner.runTest",
-        "title": "Run Grails Test"
-      },
-      {
-        "command": "grails-test-runner.runTestClass",
-        "title": "Run Grails Test Class"
-      }
-    ]
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/alejmendez/grails-test-runner"
-  },
-  "scripts": {
-    "vscode:prepublish": "npm run compile",
-    "compile": "tsc -p ./",
-    "watch": "tsc -watch -p ./"
-  },
-  "devDependencies": {
-    "@types/node": "^18.0.0",
-    "@types/vscode": "^1.74.0",
-    "typescript": "^5.0.0"
-  }
+    "name": "grails-test-runner",
+    "displayName": "Grails Test Runner",
+    "description": "Ejecuta tests de Grails/Spock con CodeLens",
+    "version": "0.0.1",
+    "publisher": "alejmendez",
+    "icon": "icon.png",
+    "engines": {
+        "vscode": "^1.74.0"
+    },
+    "categories": [
+        "Testing"
+    ],
+    "keywords": [
+        "grails",
+        "spock",
+        "groovy",
+        "test",
+        "gradle"
+    ],
+    "activationEvents": [
+        "onLanguage:groovy",
+        "workspaceContains:**/*Spec.groovy"
+    ],
+    "main": "./out/extension.js",
+    "contributes": {
+        "commands": [
+            {
+                "command": "grails-test-runner.runTest",
+                "title": "Run Grails Test"
+            },
+            {
+                "command": "grails-test-runner.runTestClass",
+                "title": "Run Grails Test Class"
+            }
+        ]
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/alejmendez/grails-test-runner"
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "watch": "tsc -watch -p ./"
+    },
+    "devDependencies": {
+        "@types/node": "^18.0.0",
+        "@types/vscode": "^1.74.0",
+        "typescript": "^5.0.0"
+    },
+    "license": "MIT"
 }

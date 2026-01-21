@@ -2,7 +2,7 @@
     "name": "grails-test-runner",
     "displayName": "Grails Test Runner",
     "description": "Ejecuta tests de Grails/Spock con CodeLens",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "publisher": "alejmendez",
     "icon": "icon.png",
     "engines": {

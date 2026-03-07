@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Grails Test Runner is a VS Code extension that provides CodeLens integration for running Grails/Spock tests. It adds "Run Test" and "Rerun Test" buttons above test methods and classes in `*Spec.groovy` files, executing them via `./gradlew` in the integrated terminal.
+Grails Test Runner is a VS Code extension that provides CodeLens integration for running Grails/Spock tests. It adds "Run Test" and "Rerun Test" buttons above test methods and classes in `*Spec.groovy`, `*Tests.groovy`, and `*Test.groovy` files, executing them via `./gradlew` in the integrated terminal.
 
 ## Build & Development Commands
 
@@ -14,24 +14,25 @@ Grails Test Runner is a VS Code extension that provides CodeLens integration for
 - `npx @vscode/vsce package` — build `.vsix` for distribution
 - Press `F5` in VS Code to launch the Extension Development Host for testing
 
+There is no test framework configured for this project itself.
+
 ## Architecture
 
-This is a single-file extension. All logic lives in `src/extension.ts`, compiled to `out/extension.js`.
+The extension is split into four source files under `src/`, compiled to `out/`:
 
-**Key components in `src/extension.ts`:**
+- **`constants.ts`** — `CLASS_REGEX` and `METHOD_REGEX` used to detect Spec/Test classes and test methods in Groovy files.
 
-- **`GrailsTestCodeLensProvider`** — implements `vscode.CodeLensProvider`. Parses Groovy files using regex to find Spec classes (`CLASS_REGEX`) and test methods (`METHOD_REGEX`). Provides CodeLens actions for run/rerun of individual tests and full classes. Detects test type (unit vs integration) based on file path (`src/test/groovy/` vs `src/integration-test/groovy/`).
+- **`codeLensProvider.ts`** — `GrailsTestCodeLensProvider` implements `vscode.CodeLensProvider`. Parses Groovy files with regex to find Spec/Test classes and `void "..."()` test methods. Emits four CodeLens actions per scope: Run/Rerun for individual tests and for the full class. Determines test type (unit vs integration) from the file path (`integration-test` substring → `integrationTest` task, otherwise `test`).
 
-- **`runGradleTest()`** — builds and executes `./gradlew test --tests "..."` or `./gradlew integrationTest --tests "..."` commands in a reusable "Grails Tests" terminal. Supports `--rerun-tasks` flag to bypass Gradle cache.
+- **`testRunner.ts`** — `runGradleTest()` builds and sends `./gradlew <testType> --tests "<className>[.testName*]"` to a reusable "Grails Tests" terminal. Accepts an optional `--rerun-tasks` flag to bypass Gradle's UP-TO-DATE cache.
 
-- **`activate()`** — registers the CodeLens provider (scoped to `**/*Spec.groovy`) and four commands: `runTest`, `runTestClass`, `rerunTest`, `rerunTestClass`.
+- **`extension.ts`** — Entry point. `activate()` registers the CodeLensProvider (pattern `**/*{Spec,Tests,Test}.groovy`) and the four commands: `runTest`, `runTestClass`, `rerunTest`, `rerunTestClass`.
 
 ## Extension Activation
 
-Activates on Groovy language files or when workspace contains `*Spec.groovy` files (see `package.json` `activationEvents`).
+Activates on `onLanguage:groovy` or when the workspace contains `*Spec.groovy`, `*Tests.groovy`, or `*Test.groovy` files (see `activationEvents` in `package.json`).
 
 ## Notes
 
-- No test framework is configured for this project itself
-- Comments in the source code are in Spanish
-- TypeScript strict mode is enabled
+- Comments in the source code are in Spanish.
+- TypeScript strict mode is enabled.

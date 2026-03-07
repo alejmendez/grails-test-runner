@@ -2,7 +2,7 @@ import * as vscode from 'vscode';
 import * as path from 'path';
 
 // Regex para detectar clases Spec y métodos de test
-const CLASS_REGEX = /^class\s+(\w+Spec)\s+/m;
+const CLASS_REGEX = /^class\s+(\w+(?:Spec|Tests?))\s+/m;
 const METHOD_REGEX = /void\s+['"](.+?)['"]\s*\(\s*\)/g;
 
 /**
@@ -16,7 +16,7 @@ class GrailsTestCodeLensProvider implements vscode.CodeLensProvider {
         const filePath = document.uri.fsPath;
         
         // Solo procesar archivos Spec.groovy
-        if (!filePath.endsWith('Spec.groovy')) {
+        if (!filePath.match(/(?:Spec|Tests?)\.groovy$/)) {
             return codeLenses;
         }
 
@@ -151,7 +151,7 @@ export function activate(context: vscode.ExtensionContext): void {
     // Registrar el CodeLensProvider para archivos Groovy
     const codeLensProvider = new GrailsTestCodeLensProvider();
     const codeLensDisposable = vscode.languages.registerCodeLensProvider(
-        { language: 'groovy', pattern: '**/*Spec.groovy' },
+        { language: 'groovy', pattern: '**/*{Spec,Tests,Test}.groovy' },
         codeLensProvider
     );
     context.subscriptions.push(codeLensDisposable);

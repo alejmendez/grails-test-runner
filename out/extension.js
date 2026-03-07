@@ -37,7 +37,7 @@ exports.activate = activate;
 exports.deactivate = deactivate;
 const vscode = __importStar(require("vscode"));
 // Regex para detectar clases Spec y métodos de test
-const CLASS_REGEX = /^class\s+(\w+Spec)\s+/m;
+const CLASS_REGEX = /^class\s+(\w+(?:Spec|Tests?))\s+/m;
 const METHOD_REGEX = /void\s+['"](.+?)['"]\s*\(\s*\)/g;
 /**
  * CodeLensProvider para archivos *Spec.groovy
@@ -48,7 +48,7 @@ class GrailsTestCodeLensProvider {
         const text = document.getText();
         const filePath = document.uri.fsPath;
         // Solo procesar archivos Spec.groovy
-        if (!filePath.endsWith('Spec.groovy')) {
+        if (!filePath.match(/(?:Spec|Tests?)\.groovy$/)) {
             return codeLenses;
         }
         // Detectar la clase Spec
@@ -158,7 +158,7 @@ function activate(context) {
     console.log('Grails Test Runner activado');
     // Registrar el CodeLensProvider para archivos Groovy
     const codeLensProvider = new GrailsTestCodeLensProvider();
-    const codeLensDisposable = vscode.languages.registerCodeLensProvider({ language: 'groovy', pattern: '**/*Spec.groovy' }, codeLensProvider);
+    const codeLensDisposable = vscode.languages.registerCodeLensProvider({ language: 'groovy', pattern: '**/*{Spec,Tests,Test}.groovy' }, codeLensProvider);
     context.subscriptions.push(codeLensDisposable);
     // Comando para ejecutar un test individual
     const runTestCommand = vscode.commands.registerCommand('grails-test-runner.runTest', (className, testName, testType) => {

@@ -2,7 +2,7 @@
     "name": "grails-test-runner",
     "displayName": "Grails Test Runner",
     "description": "Ejecuta tests de Grails/Spock con CodeLens",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "publisher": "alejmendez",
     "icon": "icon.png",
     "engines": {
@@ -20,7 +20,9 @@
     ],
     "activationEvents": [
         "onLanguage:groovy",
-        "workspaceContains:**/*Spec.groovy"
+        "workspaceContains:**/*Spec.groovy",
+        "workspaceContains:**/*Tests.groovy",
+        "workspaceContains:**/*Test.groovy"
     ],
     "main": "./out/extension.js",
     "contributes": {

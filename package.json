@@ -2,7 +2,7 @@
     "name": "grails-test-runner",
     "displayName": "Grails Test Runner",
     "description": "Ejecuta tests de Grails/Spock con CodeLens",
-    "version": "0.1.2",
+    "version": "0.1.3",
     "publisher": "alejmendez",
     "icon": "icon.png",
     "engines": {
@@ -52,11 +52,16 @@
     "scripts": {
         "vscode:prepublish": "npm run compile",
         "compile": "tsc -p ./",
-        "watch": "tsc -watch -p ./"
+        "watch": "tsc -watch -p ./",
+        "test": "TS_NODE_PROJECT=tsconfig.test.json mocha"
     },
     "devDependencies": {
+        "@types/mocha": "^10.0.10",
         "@types/node": "^18.0.0",
         "@types/vscode": "^1.74.0",
+        "mocha": "^11.7.5",
+        "ts-node": "^10.9.2",
+        "tsconfig-paths": "^4.2.0",
         "typescript": "^5.0.0"
     },
     "license": "MIT"

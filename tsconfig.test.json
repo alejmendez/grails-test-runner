@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "paths": {
+      "vscode": ["./src/test/mocks/vscode"]
+    }
+  },
+  "include": ["src/**/*"]
+}

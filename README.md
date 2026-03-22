@@ -54,7 +54,7 @@ code --install-extension *.vsix
 
 ## 🚀 Usage
 
-1. Open any `*Spec.groovy` file in your Grails project
+1. Open any `*Spec.groovy`, `*Test.groovy`, or `*Tests.groovy` file in your Grails project
 2. You'll see CodeLens buttons above your code:
    - **▶ Run All Tests** - Above the class declaration, runs all tests in the file
    - **↺ Rerun All Tests** - Same as above but with `--rerun-tasks` to bypass Gradle cache
@@ -73,7 +73,7 @@ code --install-extension *.vsix
 
 - A Grails project with Gradle wrapper (`gradlew`)
 - **Groovy Language Support** extension installed
-- Spock test files following the `*Spec.groovy` naming convention
+- Spock/Grails test files following the `*Spec.groovy`, `*Test.groovy`, or `*Tests.groovy` naming convention
 
 ## ⚙️ Commands
 
